@@ -42,7 +42,7 @@ requirements:
             ${
             var text = "";
             for(var i=0;i<inputs["inputFiles"].length;i++) 
-              text+= inputs["inputFiles"][i]+" ";
+              text+= inputs["inputFiles"][i].path+" ";
             return text;
             }
   - class: InlineJavascriptRequirement

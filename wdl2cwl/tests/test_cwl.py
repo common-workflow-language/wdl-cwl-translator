@@ -43,6 +43,7 @@ def test_meta(capsys: pytest.CaptureFixture[str]) -> None:
         ("wdl_files/TrimAdapters.wdl", "cwl_files/TrimAdapters.cwl"),
         ("wdl_files/vt.wdl", "cwl_files/vt.cwl"),
         ("wdl_files/transcriptclean_1.wdl", "cwl_files/transcriptclean_1.cwl"),
+        ("wdl_files/gatk_1.wdl", "cwl_files/gatk_1.cwl"),
         ("wdl_files/deepvariant.wdl", "cwl_files/deepvariant.cwl"),
     ],
 )

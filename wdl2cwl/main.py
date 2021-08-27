@@ -147,11 +147,19 @@ def get_command(
 
                 elif "defined(" in input_name:
                     sub_str = input_name[input_name.find("(") + 1 : -1]
+                    index = input_names.index(sub_str)
+                    data_type = input_types[index]
+                    check_str = ""
+                    if "Array" in data_type:
+                        check_str = ".length === 0 "
+                    else:
+                        check_str = ' === "" '
                     append_str = (
                         '$(inputs["'
                         + sub_str
-                        + '"] === '
-                        + '"" ? '
+                        + '"]'
+                        + check_str
+                        + "? "
                         + '"'
                         + false_value
                         + '"'
@@ -165,6 +173,12 @@ def get_command(
                 split_str = sub_str.split(sub_str[4])
                 separator = split_str[1]
                 input_name = split_str[2]
+                index = input_names.index(input_name)
+                data_type = input_types[index]
+
+                temp_append_str = ""
+                if "Array[File]" in data_type:
+                    temp_append_str = ".path"
 
                 if input_name in input_names:
                     append_str = (
@@ -174,7 +188,9 @@ def get_command(
                         + '"].length;i++) \n'
                         + '  text+= inputs["'
                         + input_name
-                        + '"][i]+"'
+                        + '"][i]'
+                        + temp_append_str
+                        + '+"'
                         + separator
                         + '";\n'
                         + "return text;\n"
@@ -333,6 +349,16 @@ def get_input(
                         type=[
                             cwl.CommandInputArraySchema(items=input_type, type="array")
                         ],
+                    )
+                )
+            else:
+                inputs.append(
+                    cwl.CommandInputParameter(
+                        id=input_name,
+                        type=[
+                            cwl.CommandInputArraySchema(items=input_type, type="array")
+                        ],
+                        default=[],
                     )
                 )
 
