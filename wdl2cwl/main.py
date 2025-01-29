@@ -152,7 +152,7 @@ def get_input(input_name: str) -> str:
 
 
 def get_cwl_docker_requirements(
-    wdl_docker: Union[WDL.Expr.Get, WDL.Expr.String]
+    wdl_docker: Union[WDL.Expr.Get, WDL.Expr.String],
 ) -> Optional[cwl.ProcessRequirement]:
     """Translate WDL Runtime Docker requirements to CWL Docker Requirement."""
     if isinstance(wdl_docker, WDL.Expr.String) and wdl_docker.literal:
